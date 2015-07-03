@@ -1,5 +1,5 @@
 
-var mPaneOrder = 0;
+
 
 
 function WordPack(ws) {
@@ -79,19 +79,18 @@ function readFile()
 }
 
 function showAllWPs() {
+    // Store all new cards
+    var cardArray = new Array();
+    
     for( i = 0; i < 5 ; i++ ) {
         
         // turn WP to words card
-        $newWordsCard = $('<div class="fluid words-card words-card-n bg-info"></div>');
+        $newWordsCard = constructWordCard(wordPacks.get(i));
         
-        var words = wordPacks.get(i).words;
-        for ( j = 0 ; j < words.length ; j++ ) {
-            $newWord = $('<p>'+ words[j] +'</p>');
-            $newWordsCard.append($newWord);
-        }
-        
-        addWordsCard($newWordsCard);
+        cardArray.push($newWordsCard);
     }
+    
+    addWordsCards(cardArray);
 }
 
 function constructPacks(rawData) {
@@ -112,15 +111,7 @@ function constructPacks(rawData) {
     }
 }
 
-function searchWP() {
-    var word = $("#input-search-main").val();
-    var result=document.getElementById("result");  
-    curIndex = wordMap.get(word);
-    if ( curIndex == null )
-        result.innerHTML="NONE";
-    else
-        result.innerHTML=wordPacks.get(curIndex).words;
-}
+
 
 function addWord() {
     var word = $("#input-add-word").val();
@@ -133,11 +124,7 @@ function saveFile() {
 }
 
 
-function addWordsCard($newWordsCard) {
-    $("#card-pane-" + mPaneOrder).append($newWordsCard);
-    
-    mPaneOrder = (mPaneOrder+1)%3;
-}
+
 
 
 $("#input-file").change(function(){
