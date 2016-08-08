@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Word Pack</title>
+	<link rel = "Shortcut Icon" href=../img/1191578.png>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   
+    <div id="div-loadFile" class="modal fade" tabindex="-1" role="dialog">
+         <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Load vocabulary book</h4>
+          </div>
+          <div class="modal-body">
+            <button id="btn-browse-file" class="btn btn-primary btn-lg btn-block center-block" >Browse File</button>
+            <input type="file" id="input-file" class="hidden" /> 
+          </div>
+        </div>
+      </div>
+          
+    </div>
+        
+    <div class="modal fade" id="div-export" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Export</h4>
+          </div>
+          <div class="modal-body">
+            <p id="p-allWords"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="container">
+        <div class="row" id="div-info">
+           <div class="input-group input-group-lg" id="div-command">
+              <span class="input-group-addon" id="sizing-addon1">$</span>
+               <input type="text" class="form-control" placeholder="Command" aria-describedby="sizing-addon1" id="input-command" />
+           </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 card-pane" id="card-pane-0">
+            </div>
+            <div class="col-xs-4 card-pane" id="card-pane-1">
+            </div>
+            <div class="col-xs-4 card-pane" id="card-pane-2">
+            </div>
+        </div>
+    </div>
+
+   
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/main.css">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../lib/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../lib/bootstrap.min.js"></script>
+    <script src="../js/objects.js"></script>
+    <script src="../js/info.js"></script>
+    <script src="../js/card.js"></script>
+    <script src="../js/command.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

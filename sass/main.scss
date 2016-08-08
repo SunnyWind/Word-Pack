@@ -1,0 +1,36 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/layout";
+
+
+#div-info {
+    background-color: gainsboro;
+    padding: 30px 30px 10px 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    @include border-radius(8px);
+}
+
+#div-command {
+    margin-bottom: 20px;
+}
+
+.words-card {
+    @include border-radius(5px);
+    padding: 10px;
+    margin: 20px auto;
+    
+    p {
+        margin: 10px;
+    }
+}
+//#div-loadFile{
+//    position: absolute;
+//    background-color: gainsboro;
+//    width: 30%;
+//    left: 50%;
+//    padding: 20px;
+//    @include border-radius(10px);
+//    top: 40%;
+//    @include translate(-50%);
+//}

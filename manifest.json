@@ -1,0 +1,15 @@
+{
+"name": "Wordpack",
+"version": "1.0",
+"manifest_version": 2,
+"description": "your handy vocabulary book.",
+"app": {
+    "background": {
+      "scripts": ["js/background.js"]
+    }
+},
+"icons": { "16": "icon.png", "128": "icon.png" },
+"permissions": [
+"http://fanyi.youdao.com/"
+]
+}
