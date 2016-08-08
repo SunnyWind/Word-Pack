@@ -63,12 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* line 5, ../sass/main.scss */
-#btn-browse-file {
-  margin-top: 100px;
-}
-
-/* line 9, ../sass/main.scss */
+/* line 6, ../sass/main.scss */
 #div-info {
   background-color: gainsboro;
   padding: 30px 30px 10px 30px;
@@ -79,12 +74,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   border-radius: 8px;
 }
 
-/* line 17, ../sass/main.scss */
+/* line 14, ../sass/main.scss */
 #div-command {
   margin-bottom: 20px;
 }
 
-/* line 21, ../sass/main.scss */
+/* line 18, ../sass/main.scss */
 .words-card {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -92,7 +87,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   padding: 10px;
   margin: 20px auto;
 }
-/* line 26, ../sass/main.scss */
+/* line 23, ../sass/main.scss */
 .words-card p {
   margin: 10px;
 }

@@ -8,6 +8,35 @@ var DURATION_MEDIUM = 15000;
 var DURATION_LONG = 30000;
 
 
+function showInfoShort(infoContent) {
+    showInfo(INFOTYPE_INFO, DURATION_SHORT, infoContent);
+}
+
+function showInfoMedium(infoContent) {
+    showInfo(INFOTYPE_INFO, DURATION_MEDIUM, infoContent);
+}
+
+function showInfoLong(infoContent) {
+    showInfo(INFOTYPE_INFO, DURATION_LONG, infoContent);
+}
+
+function showSuccessShort(infoContent) {
+    showInfo(INFOTYPE_SUCCESS, DURATION_SHORT, infoContent);
+}
+
+function showSuccessMedium(infoContent) {
+    showInfo(INFOTYPE_SUCCESS, DURATION_MEDIUM, infoContent);
+}
+
+function showWarningShort(infoContent) {
+    showInfo(INFOTYPE_WARNING, DURATION_SHORT, infoContent);
+}
+
+function showDangerShort(infoContent) {
+    showInfo(INFOTYPE_DANGER, DURATION_SHORT, infoContent);
+}
+
+
 function showInfo(infoType, duration, infoContent) {
     var $newInfoBox = $("<div class='alert text-center div-info' style='display:none'>"
                        + infoContent + "</div>");

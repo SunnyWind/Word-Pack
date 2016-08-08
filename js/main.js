@@ -2,65 +2,44 @@
 
 
 
-function WordPack(ws) {
-    this.words = ws;
-    
-    this.add = add;
-    function add(w) {
-        this.words[this.words.length] = w;
-    }
-}
 
-function WordPacks() {
-    this.size = 0;
-    this.wps = new Array();
-    
-    this.add = add;
-    function add(wp) {
-        this.wps[this.size++] = wp;
-    }
-    
-    this.get = get;
-    function get(index) {
-        return this.wps[index];
-    }
-}
-
-function WordMap() {
-    this.map = {};
-    
-    this.put = put;
-    function put(key, value) {
-        this.map[key] = value;
-    }
-    
-    this.get = get;
-    function get(key) {
-        if (key in this.map)
-            return this.map[key];
-        else
-            return null;
-    }
-}
 
 // Global variables
 var wordPacks = new WordPacks();
 var wordMap = new WordMap();
 var curIndex = -1;
 
+// Construct wordpack from local storage
+if (localStorage.wordPacks) {
+   
+    // Info
+    showInfo(INFOTYPE_INFO, DURATION_SHORT, "Constructing word packs...");
+
+    // Construct word packs
+    constructPacks(localStorage.wordPacks);
+
+    // Info
+    showInfo(INFOTYPE_SUCCESS, DURATION_SHORT, "Now you can start :)");
+
+
+    showSomeWPs();
+} else {
+    showDangerShort("No word packs, please load a word book for constructing it.");
+}
+
 function readFile() 
 { 
     // Hide the browse button
-    $("#btn-browse-file").slideToggle("slow");
-    $("#div-info").slideToggle("fast");
+    $("#div-loadFile").modal("hide");
+//    $("#div-info").slideToggle("fast");
     
     // Info
     showInfo(INFOTYPE_INFO, DURATION_SHORT, "Loading file...");
     
     var reader = new FileReader();  
-    //将文件以文本形式读入页面  
     var files = $("#input-file").prop("files"); 
-    reader.readAsText(files[0]);  
+    var bookFile = files[0];
+    reader.readAsText(bookFile);  
     reader.onload=function(f){
         // Info
         showInfo(INFOTYPE_INFO, DURATION_SHORT, "Constructing word packs...");
@@ -71,21 +50,22 @@ function readFile()
         // Info
         showInfo(INFOTYPE_SUCCESS, DURATION_SHORT, "Now you can start :)");
         
-        // Show command box
-        $("#div-command").slideToggle("slow");
+        showSomeWPs();
         
-        showAllWPs();
+        // Write the content to the local storage
+        localStorage.wordPacks = this.result;
     }  
 }
 
-function showAllWPs() {
+/*Generate 5 cards randomly*/
+function showSomeWPs() {
     // Store all new cards
     var cardArray = new Array();
     
     for( i = 0; i < 5 ; i++ ) {
-        
+        var indexR = parseInt(wordPacks.size * Math.random());
         // turn WP to words card
-        $newWordsCard = constructWordCard(wordPacks.get(i));
+        $newWordsCard = constructWordCard(wordPacks.get(indexR));
         
         cardArray.push($newWordsCard);
     }
@@ -94,7 +74,7 @@ function showAllWPs() {
 }
 
 function constructPacks(rawData) {
-    var lines = rawData.split(/\r?\n/g); // tolerate both Windows and Unix linebreaks
+    var lines = rawData.split(WP_DELIMITOR); // tolerate both Windows and Unix linebreaks
 
     var words = new Array();
     var j = 0;
@@ -113,19 +93,13 @@ function constructPacks(rawData) {
 
 
 
-function addWord() {
-    var word = $("#input-add-word").val();
-    wordPacks.get(curIndex).add(word);
-    wordMap.put(word, curIndex);
-}
 
-function saveFile() {
-    
-}
-
-
-
-
+//$(document).click(function(e){ 
+//    obj = $(e.srcElement || e.target);
+//    if (!$(obj).is("#div-loadFile") ) { 
+//        $("#div-loadFile").slideUp();
+//    } 
+//});
 
 $("#input-file").change(function(){
     readFile();
@@ -133,9 +107,49 @@ $("#input-file").change(function(){
 
 $("#btn-browse-file").click(function(){
     $("#input-file").click();
+    setTimeout(function(){$('#div-loadFile').show();},1000);
+    
+});
+
+// Bind dictionary
+$("body").on("click", ".word", function(){
+    var url = "http://dict.youdao.com/search?q="+$(this).text()+"&keyfrom=dict.index";
+    
+    $.get(url, function(data){
+        $resultPage = $(data);
+        
+        showInfoMedium($resultPage.find(".trans-container").text());
+    });
+    
 });
 
 
 
+$('div.card-pane').on("click", ".word", function() {
+    var wordToTranslate = $(this).text();
+    var youdaoUrl = "http://fanyi.youdao.com/openapi.do?keyfrom=WordPack&key=92892259&type=data&doctype=jsonp&version=1.1&q="+wordToTranslate+"&callback=translate";
+    $.ajax({
+        url: youdaoUrl,
+        type: "GET",
+        dataType: 'JSONP',
+        jsonp: 'translate'
+    });
+    // $.get(youdaoUrl,function(data,status){
+    //     showInfo("Data: " + data + "\nStatus: " + status);
+    // });
+});
 
+function translate(result) {
+    if ( result.errorCode != 0 ){
+        showDangerShort("Fail to translate the word :(");
+        return;
+    }
+
+    var content = "英/" + result.basic['uk-phonetic'] + "/&nbsp;&nbsp;&nbsp;&nbsp;美/" + result.basic['uk-phonetic'] + "/</br>";
+    var explains = result.basic.explains;
+    for ( x in explains ) {
+        content += (explains[x]+"</br>");
+    }
+    showSuccessMedium(content);
+}
 
