@@ -71,9 +71,18 @@ function readFile()
 function showSomeWPs() {
     // Store all new cards
     var cardArray = new Array();
+    var wpSize = wordPacks.size;
+    var displayCnt = 5;
 
-    for( i = 0; i < 5 ; i++ ) {
-        var indexR = parseInt(wordPacks.size * Math.random());
+    if (wpSize <= 0) {
+      showWarningShort("No word card. Add one using ':a' command :)");
+      return;
+    } else if (wpSize < 5) {
+      displayCnt = wpSize;
+    }
+
+    for( i = 0; i < displayCnt ; i++ ) {
+        var indexR = parseInt(wpSize * Math.random());
         // turn WP to words card
         $newWordsCard = constructWordCard(wordPacks.get(indexR));
 
