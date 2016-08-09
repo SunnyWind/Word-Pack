@@ -62,7 +62,8 @@ function command() {
         }
 
         if (!valid){
-        showInfo(INFOTYPE_WARNING, DURATION_SHORT, "Invalid command :(");
+          showWarningShort("Invalid command :(");
+
         }
     }else {
         // Search mode: Search specific word
@@ -79,7 +80,7 @@ function showHelpInfo() {
       "First of all, you need load a text file to the app by typing ':l'."+
       " In the text file representing word book, '-' is word seperator, and " +
       "'--' is card seperator. Initially, there is a sample word book. You can play with it.<br>" +
-      "With one command line, you can do many things listed below. Try it now!"；
+      "With one command line, you can do many things listed below. Try it now!";
     helpInfo += "Find word. [any character]<br>";
     helpInfo += "Below are command starting with a colon.<br>";
     helpInfo += "Load word book. [:l]<br>";
@@ -90,7 +91,7 @@ function showHelpInfo() {
     helpInfo += 'Print all words for exporting. [:e]<br>';
     helpInfo += 'Display some cards randomly. [:r]<br>';
     helpInfo += 'Help. [:h]<br>';
-    showInfoShort(helpInfo);
+    showInfoLong(helpInfo);
 }
 
 /*search specific word on the packs, add packs with that word to panes*/

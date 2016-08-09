@@ -4,8 +4,8 @@ var INFOTYPE_SUCCESS = 3;
 var INFOTYPE_DANGER = 4;
 
 var DURATION_SHORT = 5000;
-var DURATION_MEDIUM = 15000;
-var DURATION_LONG = 30000;
+var DURATION_MEDIUM = 30000;
+var DURATION_LONG = 60000;
 
 
 function showInfoShort(infoContent) {
@@ -40,7 +40,7 @@ function showDangerShort(infoContent) {
 function showInfo(infoType, duration, infoContent) {
     var $newInfoBox = $("<div class='alert text-center div-info' style='display:none'>"
                        + infoContent + "</div>");
-    
+
     // Set the box type
     switch (infoType) {
         case INFOTYPE_INFO:
@@ -56,22 +56,22 @@ function showInfo(infoType, duration, infoContent) {
             $newInfoBox.addClass("alert-danger");
             break;
     }
-    
+
     $("#div-info").append($newInfoBox);
     $newInfoBox.slideToggle("slow");
-    
+
     // Set the duration (visual time)
     setTimeout(function(){
         hideInfoBox($newInfoBox);
     }, duration);
-    
+
 }
 
 /*Hide the info box*/
 function hideInfoBox($infoBox) {
     // Hide the infobox
     $infoBox.slideToggle("slow");
-    
+
     // Remove the DOM after 1s
     setTimeout(function(){
         removeInfoBox($infoBox);
