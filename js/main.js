@@ -11,7 +11,7 @@ var curIndex = -1;
 
 // Construct wordpack from local storage
 if (localStorage.wordPacks) {
-   
+
     // Info
     showInfo(INFOTYPE_INFO, DURATION_SHORT, "Constructing word packs...");
 
@@ -24,52 +24,62 @@ if (localStorage.wordPacks) {
 
     showSomeWPs();
 } else {
-    showDangerShort("No word packs, please load a word book for constructing it.");
+    showInfoMedium("Start from typing ':h'...");
+
+    // Construct sample word packs
+    var sampleCon = "portray-portrait-contour-delineate-sketch-depict--sketch-"+
+    "skeleton--luxury-luxurious--explicit-implicit--fertile-fertilize-fertilizer"+
+    "--compass-surpass-transcend-surmount-exceed--elude-allude-hint-imply--cower-"+
+    "coward-crow-crowd-crowded--edible-edify--estimate-evaluate-eliminate--animated"+
+    "-vivid--adhere-cohere-adherent-coherent-inherent--scold-rebuke-decry-censur"+
+    "e-reproach--prompt-impromptu--";
+    constructPacks(sampleCon);
+    localStorage.wordPacks = this.result;
 }
 
-function readFile() 
-{ 
+function readFile()
+{
     // Hide the browse button
     $("#div-loadFile").modal("hide");
 //    $("#div-info").slideToggle("fast");
-    
+
     // Info
     showInfo(INFOTYPE_INFO, DURATION_SHORT, "Loading file...");
-    
-    var reader = new FileReader();  
-    var files = $("#input-file").prop("files"); 
+
+    var reader = new FileReader();
+    var files = $("#input-file").prop("files");
     var bookFile = files[0];
-    reader.readAsText(bookFile);  
+    reader.readAsText(bookFile);
     reader.onload=function(f){
         // Info
         showInfo(INFOTYPE_INFO, DURATION_SHORT, "Constructing word packs...");
-        
+
         // Construct word packs
         constructPacks(this.result);
-        
+
         // Info
         showInfo(INFOTYPE_SUCCESS, DURATION_SHORT, "Now you can start :)");
-        
+
         showSomeWPs();
-        
+
         // Write the content to the local storage
         localStorage.wordPacks = this.result;
-    }  
+    }
 }
 
 /*Generate 5 cards randomly*/
 function showSomeWPs() {
     // Store all new cards
     var cardArray = new Array();
-    
+
     for( i = 0; i < 5 ; i++ ) {
         var indexR = parseInt(wordPacks.size * Math.random());
         // turn WP to words card
         $newWordsCard = constructWordCard(wordPacks.get(indexR));
-        
+
         cardArray.push($newWordsCard);
     }
-    
+
     addWordsCards(cardArray);
 }
 
@@ -94,11 +104,11 @@ function constructPacks(rawData) {
 
 
 
-//$(document).click(function(e){ 
+//$(document).click(function(e){
 //    obj = $(e.srcElement || e.target);
-//    if (!$(obj).is("#div-loadFile") ) { 
+//    if (!$(obj).is("#div-loadFile") ) {
 //        $("#div-loadFile").slideUp();
-//    } 
+//    }
 //});
 
 $("#input-file").change(function(){
@@ -108,19 +118,19 @@ $("#input-file").change(function(){
 $("#btn-browse-file").click(function(){
     $("#input-file").click();
     setTimeout(function(){$('#div-loadFile').show();},1000);
-    
+
 });
 
 // Bind dictionary
 $("body").on("click", ".word", function(){
     var url = "http://dict.youdao.com/search?q="+$(this).text()+"&keyfrom=dict.index";
-    
+
     $.get(url, function(data){
         $resultPage = $(data);
-        
+
         showInfoMedium($resultPage.find(".trans-container").text());
     });
-    
+
 });
 
 
@@ -152,4 +162,3 @@ function translate(result) {
     }
     showSuccessMedium(content);
 }
-
